@@ -1,11 +1,16 @@
-# Machine Learnig for Product Recognition at Ocado
+# Photogrammetry-based data synthesis for object-to-model deep learning
 
 ## About the project
 
-[Ocado](https://www.ocado.com) is an online supermarket delivering groceries to customers across the UK. Their warehouses are heavily automated to fulfill more than 250,000 orders a week from a range of over 50,000 products. However, not all parts of the warehouse are automated, and still requires manual labour and barcode scanners to recognise the products, and Ocado is interested in any new methods to speed up this process. 
-The goal of the project is to deliver a machine learning system that can classify images of Ocado products in a range of environments.
+The availability of large image data sets has been a crucial factor in the recent success of deep learning-based classification and detection methods. Yet, while data sets for everyday objects (e.g. ImageNet, Microsoft Coco) are widely available, data for specific use-cases (e.g. identifying packaged products in a warehouse) remains scarce. In such cases, the data sets have to be created from scratch. 
 
-Our approach is to generate 3D training images using the pipeline we developed, which consists of the following main components.
+We present a novel framework for using photogrammetry-based data synthesis to create an end-to-end deep learning pipeline, beginning with real-world objects and culminating in a trained model.
+
+Our method is based on the generation of training images from 3D models obtained by applying photogrammetry to photographs of real-world objects, generally using less than 40 images per object. Using 100k synthetic images, an InceptionV3 convolutional neural network (CNN) was trained, which achieved accuracy of 96\% on a separately acquired test set of real images. The image generation process supports automatic pixel annotation. This eliminates the prohibitively expensive manual annotation typically required for detection tasks. Based on this readily available data, a one-stage RetinaNet detector was trained on the synthetic, annotated images to produce a detector that can accurately localize and classify the specimen products in real-time.
+
+## Components
+
+This repository contains all the components required to implement the pipeline explained in the paper. It also includes two front-end implementations, a Flask Web Server and an iPhone App, allowing users to perform detection/classification using a trained model. 
 
 - Rendering API 
 - Training pipeline
@@ -13,11 +18,8 @@ Our approach is to generate 3D training images using the pipeline we developed, 
 - Flask server
 - iPhone App
 
-**The full report of the project can be found [here](https://www.imperial.ac.uk/media/imperial-college/faculty-of-engineering/computing/public/1718-pg-projects/Group2-Machine-Learning-for-Product-Recognition.pdf)**
-
 **The short demo video can be found [here](https://vimeo.com/277194444)**
 
-This project was conducted for  [Software Engineering Practice and Group project (CO 530)](http://www.imperial.ac.uk/computing/current-students/courses/530/), MSc in Computing Science at [Imperial College London](http://www.imperial.ac.uk/computing/), and was awarded for ["Corporate Partnership Programme Commendation for Group Project"](http://www.imperial.ac.uk/computing/prospective-students/distinguished-projects/pg-prizes/?fbclid=IwAR16XMDbC5tJ3HAAf6oe8k35TJ1aPFmWRJLwyLLnDBMYJ0lbBTR8qp60WRs).
 ### Production Recognition (Classification)
 ![](/demo_images/classification.gif)
 
